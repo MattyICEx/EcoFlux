@@ -116,7 +116,7 @@ window.onload = async () => {
                         ticks: {
                             color: "#93afc5",
                             callback: function (value, index, values) {
-                                return (value * 100).toFixed(0) + '%';
+                                return (value).toFixed(0) + '%';
                             }
                         },
                         grid: {
