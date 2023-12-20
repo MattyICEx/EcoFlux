@@ -114,7 +114,10 @@ window.onload = async () => {
                     },
                     y: {
                         ticks: {
-                            color: "#93afc5"
+                            color: "#93afc5",
+                            callback: function (value, index, values) {
+                                return (value * 100).toFixed(0) + '%';
+                            }
                         },
                         grid: {
                             color: "rgba(92, 118, 223, 0.2)" // Sets the color of the x-axis grid lines
