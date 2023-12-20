@@ -25,8 +25,117 @@ window.onload = async () => {
                     data: observationsInflation,
                     pointRadius: 0,
                     borderWidth: 1,
-                    borderColor: 'purple', // Set the line color to red
-                    backgroundColor: 'purple', // Set the point color to red (if you're using points)
+                    borderColor: 'blue', // Set the line color to red
+                    backgroundColor: 'blue', // Set the point color to red (if you're using points)
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Core Inflation',
+                        color: 'White',
+                        font: {
+                            size: 24, // Set title font size (e.g., 24 for a larger title)
+                        }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x', // Enable panning only in the X direction
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true,
+                            },
+                            mode: 'x', // Enable zooming only in the X direction
+                            limits: {
+                                x: { min: 'original', max: 'original' }, // Set zoom limits if needed
+                            },
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                hover: {
+                    mode: 'index',
+                    intersect: false
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: "#93afc5",
+                            autoSkip: false, // Prevent automatic label skipping
+                            maxRotation: 0, // Prevent label rotation
+                            minRotation: 0,
+                            padding: 10,
+                            callback: function (value, index, values) {
+                                var x = 5; // Replace with your desired number of parts
+                                var interval = Math.ceil(values.length / x); // Calculate the interval for labels
+
+                                // Always return the first and last label,
+                                // and optionally return the label if it's not too crowded
+                                if (index === 0 || index === values.length - 1 || index % interval === 0) {
+                                    return dates[value];
+                                } else {
+                                    // Implement logic here to determine if intermediate labels should be shown
+                                    // For example, return every nth label to reduce crowding
+                                    // Uncomment and set 'n' to the desired skip interval
+                                    // return index % n === 0 ? value : null;
+                                }
+                            }
+                        },
+                        grid: {
+                            color: "rgba(92, 118, 223, 0.2)" // Sets the color of the x-axis grid lines
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: "#93afc5"
+                        },
+                        grid: {
+                            color: "rgba(92, 118, 223, 0.2)" // Sets the color of the x-axis grid lines
+                        }
+                    }
+                }
+            }
+        });
+        // Creating a professional and clean line chart with a dark blue background
+        const unemploymentCtx = document.getElementById('unemploymentChart');
+        const unemploymentChart = new Chart(unemploymentCtx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Core Inflation',
+                    data: observationsUnemployment,
+                    pointRadius: 0,
+                    borderWidth: 1,
+                    borderColor: 'green', // Set the line color to red
+                    backgroundColor: 'green', // Set the point color to red (if you're using points)
                 }]
             },
             options: {
