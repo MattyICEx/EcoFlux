@@ -25,8 +25,8 @@ window.onload = async () => {
                     data: observationsInflation,
                     pointRadius: 0,
                     borderWidth: 1,
-                    borderColor: 'red', // Set the line color to red
-                    backgroundColor: 'red', // Set the point color to red (if you're using points)
+                    borderColor: 'blue', // Set the line color to red
+                    backgroundColor: 'blue', // Set the point color to red (if you're using points)
                 }]
             },
             options: {
