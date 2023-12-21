@@ -34,12 +34,8 @@ window.onload = async () => {
         }
         
         // Initialize combinedData
-        let combinedData;
+        let combinedData = await fetchDataFromKeys(dataKeys);
         // Initialize combinedData with the data from Wized
-        fetchDataFromKeys(dataKeys).then(data => {
-            combinedData = data;
-            console.log(combinedData); // Now combinedData contains the truncated data
-        });
 
         // Parse the dates from "YYYY-MM-DD" format and convert them to "MM/YYYY" format using Moment.js
         combinedData['dates'] = combinedData['dates'].map(dateStr => moment(dateStr).format('MM/YYYY'));
