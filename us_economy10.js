@@ -71,7 +71,7 @@ window.onload = async () => {
                         title: {
                             display: true,
                             text: chartTitle,
-                            color: 'White',
+                            color: 'rgba(108,114,254,255)',
                             font: {
                                 size: 18
                             }
