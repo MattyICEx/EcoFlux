@@ -1,28 +1,56 @@
 window.onload = async () => {
     Wized.data.listen('v.Core_Inflation_Observations', async () => {
-        let observationsInflation = await Wized.data.get('v.Core_Inflation_Observations');
-        let observationsUnemployment = await Wized.data.get('v.unemployment_rate_observations');
-        let observationsFedFundsRate = await Wized.data.get('v.federal_funds_rate_observations');
-        let dates = await Wized.data.get('v.dates');
 
-        // Truncate leading zeros
-        let y = observationsInflation.findIndex(obs => obs !== 0);
-        if (y === -1) y = observationsInflation.length;
-        observationsInflation = observationsInflation.slice(y);
-        observationsUnemployment = observationsUnemployment.slice(y);
-        observationsFedFundsRate = observationsFedFundsRate.slice(y);
-        dates = dates.slice(y); // Remove corresponding dates
+        // Fetch data from Wized.data.get() and return an object with the data
+        const dataKeys = ['Core_Inflation_Observations', 'unemployment_rate_observations', 'federal_funds_rate_observations', 'dates'];
+        
+        // Function to fetch data from Wized.data.get() and return an object with the data
+        async function fetchDataFromKeys(dataKeys) {
+            let retrievedData = {};
+
+            try {
+                for (const key of dataKeys) {
+                    retrievedData[key] = await Wized.data.get(`v.${key}`);
+                }
+
+                // Find the index of the first non-zero observation in one of the arrays
+                // Assuming 'Core_Inflation_Observations' is always present and is the reference
+                let startIndex = retrievedData['Core_Inflation_Observations'].findIndex(obs => obs !== 0);
+                if (startIndex === -1) {
+                    startIndex = retrievedData['Core_Inflation_Observations'].length;
+                }
+
+                // Truncate all arrays from the startIndex
+                for (const key of dataKeys) {
+                    retrievedData[key] = retrievedData[key].slice(startIndex);
+                }
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return null;
+            }
+
+            return retrievedData;
+        }
+        
+        // Initialize combinedData
+        let combinedData;
+        // Initialize combinedData with the data from Wized
+        fetchDataFromKeys(dataKeys).then(data => {
+            combinedData = data;
+            console.log(combinedData); // Now combinedData contains the truncated data
+        });
 
         // Parse the dates from "YYYY-MM-DD" format and convert them to "MM/YYYY" format using Moment.js
-        dates = dates.map(dateStr => moment(dateStr).format('MM/YYYY'));
+        combinedData['dates'] = combinedData['dates'].map(dateStr => moment(dateStr).format('MM/YYYY'));
 
         const lineCtx = document.getElementById('lineChart');
         const unemploymentCtx = document.getElementById('unemploymentChart');
         const fedFundsRateCtx = document.getElementById('federalFundsRateChart');
 
-        createLineChart(lineCtx, dates, observationsInflation, 'Core Inflation', '#5c76df', 'rgba(92, 118, 223, 0.2)');
-        createLineChart(unemploymentCtx, dates, observationsUnemployment, 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
-        createLineChart(fedFundsRateCtx, dates, observationsFedFundsRate, 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        createLineChart(lineCtx, combinedData['dates'], combinedData['Core_Inflation_Observations'], 'Core Inflation', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        createLineChart(fedFundsRateCtx, combinedData['dates'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
 
         // Function to create the line chart
         function createLineChart(lineCtx, dates, observations, chartTitle, lineColor, backgroundColor) {
