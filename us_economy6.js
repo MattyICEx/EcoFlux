@@ -29,7 +29,7 @@ window.onload = async () => {
                     pointRadius: 0,
                     borderWidth: 2,
                     borderColor: 'red', // Set the line color to red
-                    backgroundColor: 'red', // Set the point color to red (if you're using points)
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)', // Set the point color to red (if you're using points)
                 }]
             },
             options: {
