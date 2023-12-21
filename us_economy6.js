@@ -10,7 +10,7 @@ window.onload = async () => {
         if (y === -1) y = observationsInflation.length; // If all are zeros, set y to length of array
         observationsInflation = observationsInflation.slice(y); // Remove leading zeros from observations
         observationsUnemployment = observationsUnemployment.slice(y); // Remove leading zeros from observations
-        observationsFedFundsRate = observationsUnemployment.slice(y); // Remove leading zeros from observations
+        observationsFedFundsRate = observationsFedFundsRate.slice(y); // Remove leading zeros from observations
         dates = dates.slice(y); // Remove corresponding dates
 
         // Parse the dates from "YYYY-MM-DD" format and convert them to "MM/YYYY" format using Moment.js
@@ -25,8 +25,9 @@ window.onload = async () => {
                 datasets: [{
                     label: 'Core Inflation',
                     data: observationsInflation,
+                    fill: true,
                     pointRadius: 0,
-                    borderWidth: 1,
+                    borderWidth: 2,
                     borderColor: 'red', // Set the line color to red
                     backgroundColor: 'red', // Set the point color to red (if you're using points)
                 }]
@@ -40,7 +41,7 @@ window.onload = async () => {
                         text: 'Core Inflation',
                         color: 'White',
                         font: {
-                            size: 24, // Set title font size (e.g., 24 for a larger title)
+                            size: 18, // Set title font size (e.g., 24 for a larger title)
                         }
                     },
                     legend: {
@@ -115,6 +116,7 @@ window.onload = async () => {
                         }
                     },
                     y: {
+                        beginAtZero: true,
                         ticks: {
                             color: "#93afc5",
                             callback: function (value, index, values) {
@@ -152,7 +154,7 @@ window.onload = async () => {
                         text: 'Unemployment Rate',
                         color: 'White',
                         font: {
-                            size: 24, // Set title font size (e.g., 24 for a larger title)
+                            size: 18, // Set title font size (e.g., 24 for a larger title)
                         }
                     },
                     legend: {
@@ -261,7 +263,7 @@ window.onload = async () => {
                         text: 'Federal Funds Rate',
                         color: 'White',
                         font: {
-                            size: 24, // Set title font size (e.g., 24 for a larger title)
+                            size: 18, // Set title font size (e.g., 24 for a larger title)
                         }
                     },
                     legend: {
