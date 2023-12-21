@@ -238,7 +238,7 @@ window.onload = async () => {
             }
         });
         // Creating a professional and clean line chart with a dark blue background
-        const fedFundsRateCtx = document.getElementById('unemploymentChart');
+        const fedFundsRateCtx = document.getElementById('federalFundsRateChart');
         const fedFundsRateChart = new Chart(fedFundsRateCtx, {
             type: 'line',
             data: {
