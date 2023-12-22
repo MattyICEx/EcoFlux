@@ -157,10 +157,11 @@ window.onload = async () => {
         let chartTest = createLineChart(lineCtx, combinedData['dates'], combinedData['Core_Inflation_Observations'], 'Core Inflation', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         createLineChart(fedFundsRateCtx, combinedData['dates'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
-    });
-    const zoomSlider = document.getElementById('zoomSlider');
-    zoomSlider.addEventListener('input', () => {
-        updateChartZoom(chartTest, zoomSlider.value);
+        
+        const zoomSlider = document.getElementById('zoomSlider');
+        zoomSlider.addEventListener('input', () => {
+            updateChartZoom(chartTest, zoomSlider.value);
+        });
     });
 }
 
