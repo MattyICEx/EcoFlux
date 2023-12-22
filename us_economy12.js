@@ -6,6 +6,11 @@ window.onload = async () => {
     });
     Wized.data.listen('v.Core_Inflation_Observations', async () => {
 
+        const zoomSlider = document.getElementById('zoomSlider');
+        zoomSlider.addEventListener('input', () => {
+            updateChartZoom(myChart, zoomSlider.value);
+        });
+
         // Fetch data from Wized.data.get() and return an object with the data
         const dataKeys = ['Core_Inflation_Observations', 'unemployment_rate_observations', 'federal_funds_rate_observations', 'dates'];
         
@@ -48,10 +53,6 @@ window.onload = async () => {
         const lineCtx = document.getElementById('lineChart');
         const unemploymentCtx = document.getElementById('unemploymentChart');
         const fedFundsRateCtx = document.getElementById('federalFundsRateChart');
-
-        createLineChart(lineCtx, combinedData['dates'], combinedData['Core_Inflation_Observations'], 'Core Inflation', '#5c76df', 'rgba(92, 118, 223, 0.2)');
-        createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
-        createLineChart(fedFundsRateCtx, combinedData['dates'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
 
         // Function to create the line chart
         function createLineChart(lineCtx, dates, observations, chartTitle, lineColor, backgroundColor) {
@@ -163,21 +164,21 @@ window.onload = async () => {
             return myChart;
         }
 
-        // Slider function
-        
-
+        createLineChart(lineCtx, combinedData['dates'], combinedData['Core_Inflation_Observations'], 'Core Inflation', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        createLineChart(fedFundsRateCtx, combinedData['dates'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
     });
-}
 
-function updateChartZoom(chart, zoomLevel) {
-    // Adjust these calculations as per your requirement
-    let scale = chart.scales.x;
-    let totalTicks = scale.getTicks().length;
-    let minTick = Math.floor(totalTicks * (zoomLevel / 100));
-    let maxTick = Math.ceil(totalTicks * ((100 - zoomLevel) / 100));
+    function updateChartZoom(chart, zoomLevel) {
+        // Adjust these calculations as per your requirement
+        let scale = chart.scales.x;
+        let totalTicks = scale.getTicks().length;
+        let minTick = Math.floor(totalTicks * (zoomLevel / 100));
+        let maxTick = Math.ceil(totalTicks * ((100 - zoomLevel) / 100));
 
-    scale.options.min = scale.getLabelForValue(minTick);
-    scale.options.max = scale.getLabelForValue(maxTick);
+        scale.options.min = scale.getLabelForValue(minTick);
+        scale.options.max = scale.getLabelForValue(maxTick);
 
-    chart.update();
+        chart.update();
+    }
 }
