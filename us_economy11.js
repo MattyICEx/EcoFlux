@@ -1,4 +1,9 @@
 window.onload = async () => {
+    // Slider related code
+    const zoomSlider = document.getElementById('zoomSlider');
+    zoomSlider.addEventListener('input', () => {
+        updateChartZoom(myChart, zoomSlider.value);
+    });
     Wized.data.listen('v.Core_Inflation_Observations', async () => {
 
         // Fetch data from Wized.data.get() and return an object with the data
@@ -162,4 +167,17 @@ window.onload = async () => {
         
 
     });
+}
+
+function updateChartZoom(chart, zoomLevel) {
+    // Adjust these calculations as per your requirement
+    let scale = chart.scales.x;
+    let totalTicks = scale.getTicks().length;
+    let minTick = Math.floor(totalTicks * (zoomLevel / 100));
+    let maxTick = Math.ceil(totalTicks * ((100 - zoomLevel) / 100));
+
+    scale.options.min = scale.getLabelForValue(minTick);
+    scale.options.max = scale.getLabelForValue(maxTick);
+
+    chart.update();
 }
