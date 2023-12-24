@@ -158,10 +158,20 @@ window.onload = async () => {
         createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         createLineChart(fedFundsRateCtx, combinedData['dates'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         
-        const zoomSlider = document.getElementById('zoomSlider');
-        zoomSlider.addEventListener('input', () => {
-            updateChartZoom(chartTest, zoomSlider.value);
+        noUiSlider.create(document.getElementById('zoomSlider'), {
+            start: [0, 100], // Starting handles positions (in percentage)
+            connect: true, // Display a colored bar between the handles
+            range: {
+                'min': 0,
+                'max': 100
+            }
         });
+        const slider = document.getElementById('zoomSlider');
+
+        slider.noUiSlider.on('update', function (values, handle) {
+            updateChartZoom(myChart, values[0], values[1]);
+        });
+
     });
 }
 
