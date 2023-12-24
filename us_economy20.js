@@ -175,25 +175,18 @@ window.onload = async () => {
     });
 }
 
-// Function to update chart zoom
-function updateChartZoom(chart, zoomLevel) {
-    const scale = chart.scales.x;
-    const allDates = chart.data.labels; // Assuming your dates are in chart.data.labels
+function updateChartZoom(chart, minZoom, maxZoom) {
+    const allDates = chart.data.labels;
     const totalDates = allDates.length;
 
-    // Calculate the number of dates to display based on the zoom level
-    const displayedDatesCount = Math.max(1, Math.ceil(totalDates * (100 - zoomLevel) / 100));
+    const startIndex = Math.floor(totalDates * (minZoom / 100));
+    const endIndex = Math.floor(totalDates * (maxZoom / 100));
 
-    // Determine the start and end index for the dates to display
-    const halfDisplayedDates = Math.floor(displayedDatesCount / 2);
-    const middleIndex = Math.floor(totalDates / 2);
-    const startIndex = Math.max(0, middleIndex - halfDisplayedDates);
-    const endIndex = Math.min(totalDates - 1, middleIndex + halfDisplayedDates);
-
-    // Set the min and max for the x-axis
+    const scale = chart.scales.x;
     scale.options.min = allDates[startIndex];
     scale.options.max = allDates[endIndex];
 
     chart.update();
 }
+
 
