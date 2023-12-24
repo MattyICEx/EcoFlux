@@ -169,7 +169,7 @@ window.onload = async () => {
         const slider = document.getElementById('zoomSlider');
 
         slider.noUiSlider.on('update', function (values, handle) {
-            updateChartZoom(myChart, values[0], values[1]);
+            updateChartZoom(chartTest, values[0], values[1]);
         });
 
     });
