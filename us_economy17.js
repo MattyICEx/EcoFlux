@@ -168,21 +168,22 @@ window.onload = async () => {
 // Function to update chart zoom
 function updateChartZoom(chart, zoomLevel) {
     const scale = chart.scales.x;
-    const totalTicks = scale.getTicks().length;
+    const allDates = chart.data.labels; // Assuming your dates are in chart.data.labels
+    const totalDates = allDates.length;
 
-    // Calculate the number of ticks to display based on the zoom level
-    // For example, a higher zoom level (closer to 100) shows fewer ticks
-    const displayedTicks = Math.max(1, Math.ceil(totalTicks * (100 - zoomLevel) / 100));
+    // Calculate the number of dates to display based on the zoom level
+    const displayedDatesCount = Math.max(1, Math.ceil(totalDates * (100 - zoomLevel) / 100));
 
-    // Determine the start and end index for the ticks to display
-    const halfDisplayedTicks = Math.floor(displayedTicks / 2);
-    const middleIndex = Math.floor(totalTicks / 2);
-    const minTick = Math.max(0, middleIndex - halfDisplayedTicks);
-    const maxTick = Math.min(totalTicks - 1, middleIndex + halfDisplayedTicks);
+    // Determine the start and end index for the dates to display
+    const halfDisplayedDates = Math.floor(displayedDatesCount / 2);
+    const middleIndex = Math.floor(totalDates / 2);
+    const startIndex = Math.max(0, middleIndex - halfDisplayedDates);
+    const endIndex = Math.min(totalDates - 1, middleIndex + halfDisplayedDates);
 
-    // Update the chart's x-axis range
-    scale.options.min = scale.getLabelForValue(minTick);
-    scale.options.max = scale.getLabelForValue(maxTick);
+    // Set the min and max for the x-axis
+    scale.options.min = allDates[startIndex];
+    scale.options.max = allDates[endIndex];
 
     chart.update();
 }
+
