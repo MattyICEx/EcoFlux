@@ -154,9 +154,9 @@ window.onload = async () => {
             return myChart;
         }
 
-        let chartTest = createLineChart(lineCtx, combinedData['dates'], combinedData['Core_Inflation_Observations'], 'Core Inflation', '#5c76df', 'rgba(92, 118, 223, 0.2)');
-        createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
-        createLineChart(fedFundsRateCtx, combinedData['dates'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        let line1 = createLineChart(lineCtx, combinedData['dates'], combinedData['Core_Inflation_Observations'], 'Core Inflation', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        let line2 = createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        let line3 = createLineChart(fedFundsRateCtx, combinedData['dates'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         
         noUiSlider.create(document.getElementById('zoomSlider'), {
             start: [0, 100], // Starting handles positions (in percentage)
@@ -169,7 +169,9 @@ window.onload = async () => {
         const slider = document.getElementById('zoomSlider');
 
         slider.noUiSlider.on('update', function (values, handle) {
-            updateChartZoom(chartTest, values[0], values[1]);
+            updateChartZoom(line1, values[0], values[1]);
+            updateChartZoom(line2, values[0], values[1]);
+            updateChartZoom(line3, values[0], values[1]);
         });
 
     });
