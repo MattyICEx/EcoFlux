@@ -165,7 +165,7 @@ window.onload = async () => {
                 'min': 0,
                 'max': 100
             },
-            margin: 10 // This is the important part: minimum distance between the handles
+            margin: 3 // This is the important part: minimum distance between the handles
         });
         const slider = document.getElementById('zoomSlider');
 
