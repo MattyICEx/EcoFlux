@@ -41,8 +41,8 @@ window.onload = async () => {
         combinedData['dates_stock_market_indicators'] = combinedData['dates_stock_market_indicators'].map(dateStr => moment(dateStr).format('MM/YYYY'));
 
         const lineCtx = document.getElementById('lineChart');
-        const unemploymentCtx = document.getElementById('unemploymentChart');
-        const fedFundsRateCtx = document.getElementById('federalFundsRateChart');
+        //const unemploymentCtx = document.getElementById('unemploymentChart');
+        //const fedFundsRateCtx = document.getElementById('federalFundsRateChart');
 
         // Function to create the line chart
         function createLineChart(lineCtx, dates, observations, chartTitle, lineColor, backgroundColor) {
@@ -156,7 +156,7 @@ window.onload = async () => {
 
         let line1 = createLineChart(lineCtx, combinedData['dates_stock_market_indicators'], combinedData['wilshire_5000_index_observations'], 'Wilshire 5,000 Index', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         //let line2 = createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
-        let line3 = createLineChart(fedFundsRateCtx, combinedData['dates_stock_market_indicators'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        //let line3 = createLineChart(fedFundsRateCtx, combinedData['dates_stock_market_indicators'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         
         noUiSlider.create(document.getElementById('zoomSlider'), {
             start: [0, 100], // Starting handles positions (in percentage)
@@ -172,7 +172,7 @@ window.onload = async () => {
         slider.noUiSlider.on('update', function (values, handle) {
             updateChartZoom(line1, values[0], values[1]);
             //updateChartZoom(line2, values[0], values[1]);
-            updateChartZoom(line3, values[0], values[1]);
+            //updateChartZoom(line3, values[0], values[1]);
         });
 
     });
