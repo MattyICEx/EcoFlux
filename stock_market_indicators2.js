@@ -40,7 +40,7 @@ window.onload = async () => {
         // Parse the dates from "YYYY-MM-DD" format and convert them to "MM/YYYY" format using Moment.js
         combinedData['dates_stock_market_indicators'] = combinedData['dates_stock_market_indicators'].map(dateStr => moment(dateStr).format('MM/YYYY'));
 
-        const lineCtx = document.getElementById('lineChart');
+        const wilshire5000CTX = document.getElementById('wilshire5000Chart');
         //const unemploymentCtx = document.getElementById('unemploymentChart');
         //const fedFundsRateCtx = document.getElementById('federalFundsRateChart');
 
@@ -154,7 +154,7 @@ window.onload = async () => {
             return myChart;
         }
 
-        let line1 = createLineChart(lineCtx, combinedData['dates_stock_market_indicators'], combinedData['wilshire_5000_index_observations'], 'Wilshire 5,000 Index', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        let line1 = createLineChart(wilshire5000CTX, combinedData['dates_stock_market_indicators'], combinedData['wilshire_5000_index_observations'], 'Wilshire 5,000 Index', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         //let line2 = createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         //let line3 = createLineChart(fedFundsRateCtx, combinedData['dates_stock_market_indicators'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         
