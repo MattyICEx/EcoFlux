@@ -154,7 +154,7 @@ window.onload = async () => {
             return myChart;
         }
 
-        let line1 = createLineChart(lineCtx, combinedData['dates_stock_market_indicators'], combinedData['Core_Inflation_Observations'], 'Core Inflation', '#5c76df', 'rgba(92, 118, 223, 0.2)');
+        let line1 = createLineChart(lineCtx, combinedData['dates_stock_market_indicators'], combinedData['wilshire_5000_index_observations'], 'Wilshire 5,000 Index', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         //let line2 = createLineChart(unemploymentCtx, combinedData['dates'], combinedData['unemployment_rate_observations'], 'Unemployment Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         let line3 = createLineChart(fedFundsRateCtx, combinedData['dates_stock_market_indicators'], combinedData['federal_funds_rate_observations'], 'Federal Funds Rate', '#5c76df', 'rgba(92, 118, 223, 0.2)');
         
