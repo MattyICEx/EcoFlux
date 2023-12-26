@@ -180,6 +180,8 @@ window.onload = async () => {
 
 function updateChartZoom(chart, minZoom, maxZoom) {
     const allDates = chart.data.labels;
+    console.log(allDates);
+    console.log(allDates.length)
     const totalDates = allDates.length;
 
     const startIndex = Math.floor(totalDates * (minZoom / 100));
