@@ -38,7 +38,7 @@ window.onload = async () => {
         // Initialize combinedData with the data from Wized
 
         // Parse the dates from "YYYY-MM-DD" format and convert them to "MM/YYYY" format using Moment.js
-        combinedData['dates_stock_market_indicators'] = combinedData['dates_stock_market_indicators'].map(dateStr => moment(dateStr).format('MM/YYYY'));
+        combinedData['dates_stock_market_indicators'] = combinedData['dates_stock_market_indicators'].map(dateStr => moment(dateStr).format('DD/MM/YYYY'));
 
         const wilshire5000CTX = document.getElementById('wilshire5000Chart');
         //const unemploymentCtx = document.getElementById('unemploymentChart');
@@ -180,8 +180,6 @@ window.onload = async () => {
 
 function updateChartZoom(chart, minZoom, maxZoom) {
     const allDates = chart.data.labels;
-    console.log(allDates);
-    console.log(allDates.length)
     const totalDates = allDates.length;
 
     const startIndex = Math.floor(totalDates * (minZoom / 100));
